@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
+import Erro from './Erro';
 
 export default class TodoBox extends React.Component {
      constructor(props) {
@@ -16,12 +17,25 @@ export default class TodoBox extends React.Component {
 		this.handleNodeRemoval = this.handleNodeRemoval.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleToggleComplete = this.handleToggleComplete.bind(this);
+		this.taskAlreadyexists = this.taskAlreadyexists.bind(this);
      }
 
 	generateId() {
 		return Math.floor(Math.random()*90000) + 10000;
 	}
 
+	taskAlreadyexists(newTask){
+		var ret = false;
+		var data = this.state.data;
+		data.forEach((task) => {
+			if(task.task === newTask){
+			    ret = true;
+			}
+			
+		})
+		return ret;
+	}
+	
 	handleNodeRemoval(nodeId) {
 		var data = this.state.data;
 		data = data.filter((el) => {
@@ -32,11 +46,13 @@ export default class TodoBox extends React.Component {
 	}
 
 	handleSubmit(task) {
-		var data = this.state.data;
-		var id = this.generateId().toString();
-		var complete = 'false';
-		data = data.concat([{id, task, complete}]);
-		this.setState({data});
+		if(!this.taskAlreadyexists(task)){
+			var data = this.state.data;
+			var id = this.generateId().toString();
+			var complete = 'false';
+			data = data.concat([{id, task, complete}]);
+			this.setState({data});
+		}
 	}
 
 	handleToggleComplete(nodeId) {
@@ -57,6 +73,8 @@ export default class TodoBox extends React.Component {
 				<h1 className="vert-offset-top-0">To do:</h1>
 				<TodoList data={this.state.data} removeNode={this.handleNodeRemoval} toggleComplete={this.handleToggleComplete} />
 				<TodoForm onTaskSubmit={this.handleSubmit} />
+				<br />
+				<Erro id="alreadyExists" message="This task already exists" />
 			</div>
 		);
 	}

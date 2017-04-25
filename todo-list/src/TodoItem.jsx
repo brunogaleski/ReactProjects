@@ -1,6 +1,13 @@
 import React from 'react';
 
 export default class TodoItem extends React.Component{
+	  constructor(props) {
+        super(props);
+		this.removeNode = this.removeNode.bind(this);
+		this.updateClass = this.updateClass.bind(this);
+		this.toggleComplete = this.toggleComplete.bind(this);
+     }
+	
 	removeNode(e) {
 		e.preventDefault();
 		this.props.removeNode(this.props.nodeId);
@@ -20,7 +27,7 @@ export default class TodoItem extends React.Component{
 	render() {
 		var classes = 'list-group-item clearfix';
 		if (this.props.complete === 'true') {
-			classes = classes + ' list-group-item-success';
+			classes += ' list-group-item-success';
 		}
 		return (
 			<li className={classes}>

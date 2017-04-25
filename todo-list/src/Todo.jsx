@@ -139,7 +139,5 @@ var TodoForm = React.createClass({
 	}
 });
 
-ReactDOM.render(
-	<TodoBox />,
-	document.getElementById('todoBox')
-);
+
+export default TodoBox;

@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export default class TodoForm extends React.Component{
+	constructor() {
+    super();
+		this.doSubmit = this.doSubmit.bind(this)
+    };
+  
 	doSubmit(e) {
 		e.preventDefault();
 		var task = ReactDOM.findDOMNode(this.refs.task).value.trim();
@@ -13,7 +18,7 @@ export default class TodoForm extends React.Component{
 		return;
 	}
 
-	rendern() {
+	render() {
 		return (
 			<div className="commentForm vert-offset-top-2">
 				<hr />

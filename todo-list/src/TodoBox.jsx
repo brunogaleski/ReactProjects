@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import {TodoList} from './TodoList';
-import {TodoForm} from './TodoForm';
+import TodoList from './TodoList';
+import TodoForm from './TodoForm';
 
 export default class TodoBox extends React.Component {
      constructor(props) {
@@ -13,6 +12,10 @@ export default class TodoBox extends React.Component {
                     {"id":"00003","task":"Go to work","complete":"false"}
 			    ]
             };
+		this.generateId = this.generateId.bind(this);
+		this.handleNodeRemoval = this.handleNodeRemoval.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleToggleComplete = this.handleToggleComplete.bind(this);
      }
 
 	generateId() {
@@ -39,7 +42,7 @@ export default class TodoBox extends React.Component {
 	handleToggleComplete(nodeId) {
 		var data = this.state.data;
 		for (var i in data) {
-			if (data[i].id == nodeId) {
+			if (data[i].id === nodeId) {
 				data[i].complete = data[i].complete === 'true' ? 'false' : 'true';
 				break;
 			}
@@ -58,8 +61,3 @@ export default class TodoBox extends React.Component {
 		);
 	}
 };
-
-ReactDOM.render(
-	<TodoBox />,
-	document.getElementById('todoBox')
-);

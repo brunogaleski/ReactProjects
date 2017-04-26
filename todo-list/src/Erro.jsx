@@ -1,21 +1,24 @@
 import React from 'react';
 
 export default class Erro extends React.Component {
-     constructor(props) {
+    constructor(props) {
         super(props);
-        this.bsClass = "alert alert-danger"
-        var myVar = setInterval(this.hide(), 6000); 
-        
-        this.hide = this.hide.bind(this);
-     }
-    
-    hide() {
-        this.bsClass = "alert alert-danger"
+        this.showErro = this.showErro.bind(this);
     }
+    
+    showErro(shouldShow) {
+        this.props.showErro(shouldShow);
+        return;
+    }
+    
+    componentDidMount() {
+        setTimeout(() => this.showErro(false), 2000)
+    }
+    
     render() {
         return (
             <div id={this.props.id}>
-    			<div className={this.bsClass}>
+    			<div className="alert alert-danger">
     				 {this.props.message}
     			</div>
     		</div>
